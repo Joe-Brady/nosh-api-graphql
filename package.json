@@ -2,8 +2,9 @@
   "name": "nosh-api-graphql",
   "description": "The Apollo GraphQL API for a restaurant recommendation service.",
   "scripts": {
-    "dev": "echo TODO",
-    "build": "(rm -r ./dist || true) && ",
+    "dev": "nodemon --exec babel-node src/index --extensions .ts",
+    "build": "(rm -r ./dist || true) && babel src -d dist --extensions .ts,.js",
+    "start": "node dist/index.js",
     "test:lint": "eslint --ext .ts ./src/**/*",
     "test:format": "prettier --list-different './src/**/*'",
     "test:typescript": "tsc --skipLibCheck",
@@ -21,7 +22,9 @@
     "regenerator-runtime": "^0.13.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.6.2",
     "@babel/core": "^7.5.5",
+    "@babel/node": "^7.6.2",
     "@babel/plugin-proposal-class-properties": "^7.5.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
@@ -32,6 +35,7 @@
     "eslint": "^6.3.0",
     "eslint-config-prettier": "^6.1.0",
     "jest": "^24.9.0",
+    "nodemon": "^1.19.3",
     "prettier": "^1.18.2",
     "typescript": "^3.6.2"
   }
