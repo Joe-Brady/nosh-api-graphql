@@ -1,0 +1,38 @@
+{
+  "name": "nosh-api-graphql",
+  "description": "The Apollo GraphQL API for a restaurant recommendation service.",
+  "scripts": {
+    "dev": "echo TODO",
+    "build": "(rm -r ./dist || true) && ",
+    "test:lint": "eslint --ext .ts ./src/**/*",
+    "test:format": "prettier --list-different './src/**/*'",
+    "test:typescript": "tsc --skipLibCheck",
+    "test:unit": "jest ./src",
+    "test:ci": "npm run test:lint && npm run test:format && npm run test:typescript && npm run test:unit"
+  },
+  "author": "Joe Brady",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Joe-Brady/nosh-api-graphql.git"
+  },
+  "dependencies": {
+    "core-js": "^3.2.1",
+    "regenerator-runtime": "^0.13.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-typescript": "^7.3.3",
+    "@typescript-eslint/eslint-plugin": "^2.1.0",
+    "@typescript-eslint/parser": "^2.1.0",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.3.0",
+    "eslint-config-prettier": "^6.1.0",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "typescript": "^3.6.2"
+  }
+}
