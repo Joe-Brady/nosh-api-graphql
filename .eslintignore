@@ -1,2 +1,5 @@
 **/*.test.js
 dist
+src/data-sources/postgres/migrations
+src/data-sources/postgres/seeds
+src/data-sources/postgres/knexfile.js

@@ -9,7 +9,12 @@
     "test:format": "prettier --list-different './src/**/*'",
     "test:typescript": "tsc --skipLibCheck",
     "test:unit": "jest ./src",
-    "test:ci": "npm run test:lint && npm run test:format && npm run test:typescript && npm run test:unit"
+    "test:ci": "npm run test:lint && npm run test:format && npm run test:typescript && npm run test:unit",
+    "types:gen": "apollo codegen:generate --localSchemaFile=graphql-schema.json --target=typescript --includes=src/**/*.ts --tagName=gql --addTypename --globalTypesFile=src/types/graphql-global-types.ts types",
+    "knex:seed:dev": "knex seed:run --cwd src/data-sources/postgres --env=development",
+    "knex:migrate:create": "f(){ if test -z $1; then echo 'USAGE: npm run knex:createmigration example_migration_name.' && exit 1; else knex migrate:make --cwd src/data-sources/postgres $1; fi ;};f",
+    "knex:migrate:latest": "knex migrate:latest --cwd src/data-sources/postgres",
+    "knex:migrate:rollback": "knex migrate:rollback --cwd src/data-sources/postgres"
   },
   "author": "Joe Brady",
   "license": "MIT",
@@ -18,7 +23,11 @@
     "url": "git+https://github.com/Joe-Brady/nosh-api-graphql.git"
   },
   "dependencies": {
+    "apollo-server": "^2.9.4",
     "core-js": "^3.2.1",
+    "graphql": "^14.5.8",
+    "knex": "^0.19.4",
+    "pg": "^7.12.1",
     "regenerator-runtime": "^0.13.3"
   },
   "devDependencies": {
@@ -29,14 +38,18 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.3.3",
+    "@types/graphql": "^14.5.0",
     "@typescript-eslint/eslint-plugin": "^2.1.0",
     "@typescript-eslint/parser": "^2.1.0",
+    "apollo": "^2.18.3",
     "babel-jest": "^24.9.0",
     "eslint": "^6.3.0",
     "eslint-config-prettier": "^6.1.0",
     "jest": "^24.9.0",
     "nodemon": "^1.19.3",
+    "npm": "^6.12.0",
     "prettier": "^1.18.2",
+    "sqlite3": "^4.1.0",
     "typescript": "^3.6.2"
   }
 }
