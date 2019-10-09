@@ -2,7 +2,7 @@
   "name": "nosh-api-graphql",
   "description": "The Apollo GraphQL API for a restaurant recommendation service.",
   "scripts": {
-    "dev": "nodemon --exec babel-node src/index --extensions .ts",
+    "dev": "nodemon",
     "build": "(rm -r ./dist || true) && babel src -d dist --extensions .ts,.js",
     "start": "node dist/index.js",
     "test:lint": "eslint --ext .ts ./src/**/*",
@@ -25,6 +25,7 @@
   "dependencies": {
     "apollo-server": "^2.9.4",
     "core-js": "^3.2.1",
+    "dataloader": "^1.4.0",
     "graphql": "^14.5.8",
     "knex": "^0.19.4",
     "pg": "^7.12.1",

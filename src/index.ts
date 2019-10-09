@@ -1,5 +1,10 @@
 import { ApolloServer, gql } from "apollo-server";
-import knex from "./data-sources/postgres/knex";
+import knex from "./data-sources/primary-db/knex";
+import DataLoader from "dataloader";
+
+knex.on("query", query => {
+  console.log(query);
+});
 
 const typeDefs = gql`
   enum Category {
@@ -18,26 +23,40 @@ const typeDefs = gql`
   }
 
   type Query {
-    products: [Product]
+    product(id: ID!): Product
   }
 `;
 
-// Resolvers define the technique for fetching the types defined in the
-// schema. This resolver retrieves books from the "books" array above.
+const dataLoaders = {
+  productById: new DataLoader(
+    async ids =>
+      await knex("products")
+        .whereIn("id", ids)
+        .select()
+        .then(rows => ids.map(id => rows.find(row => row.id === id)))
+  )
+};
+
 const resolvers = {
   Query: {
-    products: async () =>
-      await knex
-        .select("id", "name", "description", "price", "category", "quantity")
-        .from("products")
+    product: (_, { id }) => ({ id: Number(id) })
+  },
+  Product: {
+    name: async ({ id }) =>
+      await dataLoaders.productById.load(id).then(res => res.name),
+    description: async ({ id }) =>
+      await dataLoaders.productById.load(id).then(res => res.description),
+    price: async ({ id }) =>
+      await dataLoaders.productById.load(id).then(res => res.price),
+    category: async ({ id }) =>
+      await dataLoaders.productById.load(id).then(res => res.category),
+    quantity: async ({ id }) =>
+      await dataLoaders.productById.load(id).then(res => res.quantity)
   }
 };
 
-// The ApolloServer constructor requires two parameters: your schema
-// definition and your set of resolvers.
 const server = new ApolloServer({ typeDefs, resolvers });
 
-// The `listen` method launches a web server.
 server.listen().then(({ url }) => {
   console.log(`🚀  Server ready at ${url}`);
 });
