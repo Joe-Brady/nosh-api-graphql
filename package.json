@@ -27,7 +27,7 @@
     "core-js": "^3.2.1",
     "dataloader": "^1.4.0",
     "graphql": "^14.5.8",
-    "knex": "^0.19.4",
+    "knex": "^2.4.0",
     "pg": "^7.12.1",
     "regenerator-runtime": "^0.13.3"
   },
